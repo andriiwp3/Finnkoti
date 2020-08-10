@@ -2255,7 +2255,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         var currentHour = currentDate.getHours();
         var currentTZOffset = currentDate.getTimezoneOffset() / 60;
         var currentUTCHour = currentHour + currentTZOffset;
-        var isOpen = currentUTCHour > officeHoursObj.officeHoursUTC.officeHoursStart;
+        var isOpen = currentUTCHour > officeHoursObj.officeHoursUTC.officeHoursStart && currentUTCHour < officeHoursObj.officeHoursUTC.officeHoursEnd;
         changeWorkStatus(isOpen, officeHoursBlock);
       });
     }
