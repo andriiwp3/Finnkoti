@@ -1117,7 +1117,7 @@ body.ie .ibg img {
 }
 
 .slide-testimonial__img img {
-  max-width: 100%;
+  width: 100%;
 }
 
 .slide-testimonial__body {
@@ -1485,11 +1485,6 @@ body.ie .ibg img {
         -ms-flex: auto;
             flex: auto;
     margin: 0px 0px 40px 0px;
-  }
-
-  .slide-testimonial__img img {
-    max-width: none;
-    width: 100%;
   }
 
   .slide-testimonial__body {
