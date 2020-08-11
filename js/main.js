@@ -20,6 +20,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
         if (pageYOffset > animItemOffset - animItemPoint && pageYOffset < animItemOffset + animItemHeight) {
           animItem.classList.add('_in-sight');
+
+          if (animItem.classList.contains('.slide-testimonial')) {
+            animItem.classList.remove('hide');
+          }
         } else {
           if (animItem.classList.contains('_anim-hide')) {
             animItem.classList.remove('_in-sight');
@@ -875,7 +879,55 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if ($('.hero__dots li')) {
       $('.hero__dots li').addClass('hero__dot');
     }
-  } // HTML data-da="where(uniq class name),position(digi),when(breakpoint)"
+  }
+
+  if ($('.testimonials__slider').length > 0) {
+    $('.testimonials__slider').slick({
+      autoplay: false,
+      dots: false,
+      arrows: false,
+      accessibility: false,
+      swipe: false,
+      slidesToShow: 1,
+      autoplaySpeed: 4000,
+      appendArrows: $('.testimonials__arrows'),
+      prevArrow: "<div class=\"testimonials__arrow slide-testimonial__arrow_prev\"><svg width=\"35\" height=\"8\" viewBox=\"0 0 35 8\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0.646446 4.35355C0.451183 4.15829 0.451183 3.84171 0.646446 3.64645L3.82843 0.464466C4.02369 0.269204 4.34027 0.269204 4.53553 0.464466C4.7308 0.659728 4.7308 0.976311 4.53553 1.17157L1.70711 4L4.53553 6.82843C4.7308 7.02369 4.7308 7.34027 4.53553 7.53553C4.34027 7.7308 4.02369 7.7308 3.82843 7.53553L0.646446 4.35355ZM35 4.5H1V3.5H35V4.5Z\" fill=\"black\" /></svg></div>",
+      nextArrow: "<div class=\"testimonials__arrow slide-testimonial__arrow_next\"><svg width=\"35\" height=\"8\" viewBox=\"0 0 35 8\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M34.3536 4.35355C34.5488 4.15829 34.5488 3.84171 34.3536 3.64645L31.1716 0.464466C30.9763 0.269204 30.6597 0.269204 30.4645 0.464466C30.2692 0.659728 30.2692 0.976311 30.4645 1.17157L33.2929 4L30.4645 6.82843C30.2692 7.02369 30.2692 7.34027 30.4645 7.53553C30.6597 7.7308 30.9763 7.7308 31.1716 7.53553L34.3536 4.35355ZM0 4.5H34V3.5H0V4.5Z\" fill=\"black\" /></svg></div>"
+    });
+  }
+
+  var testimonialsArrows = document.querySelectorAll('.testimonials__arrow');
+  testimonialsArrows.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      if (item.classList.contains('testimonials__arrow_prev')) {
+        changeSlide('Prev');
+      } else {
+        changeSlide('Next');
+      }
+    });
+  });
+
+  var changeSlide = function changeSlide(where) {
+    var arrows = document.querySelector('.testimonials__arrows');
+    var currentSlide = document.querySelector('.slide-testimonial.slick-current');
+    var nextSlide;
+
+    if (where === 'Next') {
+      nextSlide = currentSlide.nextElementSibling;
+    } else {
+      nextSlide = currentSlide.previousElementSibling;
+    }
+
+    arrows.classList.add('inactive');
+    currentSlide.classList.add('hide');
+    nextSlide.classList.add('hide');
+    setTimeout(function () {
+      $('.testimonials__slider').slick("slick".concat(where));
+      nextSlide.classList.remove('hide');
+      currentSlide.classList.remove('hide');
+      arrows.classList.remove('inactive');
+    }, 1250);
+  }; // HTML data-da="where(uniq class name),position(digi),when(breakpoint)"
   // e.x. data-da="item,2,992"
 
 
